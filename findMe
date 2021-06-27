@@ -1,0 +1,42 @@
+#! /bin/bash
+
+## findMe: created by User3xample jun 2021
+#  Version:  0.1
+#  Licence:  personal use only, non-comercial.
+#
+#  Found at: https://github.com/user3xample/findMe
+####################
+#use:  
+# Look-up tool to display Hostname, IP4, IP6, Gateway, and external IP for the host machine.
+#
+# Use at your own risk.
+#################
+clear #clear the screen
+
+MyHostName="$(hostname)"  #  get the host name
+MYip4and6="$(host ${MyHostName}|grep address)"  # get both ip4 and ip6 details
+findGateway="$(route -n | grep 'UG[ \t]' | awk '{print $2}')"  # get the gateway address 
+findExternal="$(host myip.opendns.com resolver1.opendns.com |grep "address")"  # Reach out to open dns and ask whats my ip
+
+
+echo ""
+echo "---------------------------------------------"
+echo " Your Addresses are:"
+echo "---------------------------------------------"
+echo "Local Hostname: "${MyHostName}  # get my host name
+
+echo "Local IP4:     " ${MYip4and6:19:15}  # get local IP4
+echo "Local IP6:     " ${MYip4and6:60:100}   # get local IP6
+echo "local Gateway: " ${findGateway}  # Get you Getway IP Address
+
+echo "External IP:   " ${findExternal:29:100}  # Get your External IP Address
+echo "---------------------------------------------"
+echo "---------------------------------------------"
+echo "findMe: created by User3xample "
+echo ""
+
+
+
+
+
+
